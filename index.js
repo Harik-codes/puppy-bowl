@@ -4,7 +4,9 @@ const link =
   "https://fsa-puppy-bowl.herokuapp.com/api/2605-FTB-ET-WEB-FT/players";
 
 let dogInfo = [];
+let singleDogInfo = null;
 const puppySelect = document.querySelector("#puppySelect");
+const puppyStatus = document.querySelector("#puppyStatus");
 
 /**
  * Fetches all players from the API.
@@ -28,7 +30,9 @@ const fetchAllPlayers = async () => {
  * Unless we know the id of the player we are trying to fetch, we cannot call fetchSinglePlayer()
  */
 const fetchSinglePlayer = async (playerId) => {
-  //TODO
+  const response = await fetch(`${link}/${playerId}`);
+  const data = await response.json();
+  singleDogInfo = data.data.player;
 };
 
 /**
@@ -83,13 +87,32 @@ const removePlayer = async (playerId) => {
  */
 const render = () => {
   const html = dogInfo.map((info) => {
-    return `<div>
+    return `<div class="dogExpand" data-dogid=${info.id}>
     <img src="${info.imageUrl}"/>
     <h3>${info.name}</h3>
     </div>`;
   });
   puppySelect.innerHTML = html.join("");
+  if (!singleDogInfo) {
+    puppyStatus.innerHTML = "Please make a selection.";
+  } else {
+    puppyStatus.innerHTML = `<img src="${singleDogInfo.imageUrl}"/>
+                            <p>Name: ${singleDogInfo.name}</p>
+                            <p>Id: ${singleDogInfo.id}</p>
+                            <p>Team: ${singleDogInfo.team}</p>
+                            <p>Breed: ${singleDogInfo.breed}</p>
+                            <p>Status: ${singleDogInfo.status}</p>
+`;
+  }
 };
+
+puppySelect.addEventListener("click", async (event) => {
+  if (event.target.classList.contains("dogExpand")) {
+    await fetchSinglePlayer(event.target.dataset.dogid);
+    console.log(singleDogInfo);
+    render();
+  }
+});
 
 /**
  * Initializes the app by calling render
