@@ -1,4 +1,38 @@
+body {
+  background-color: antiquewhite;
+}
 img {
-  height: 20%;
-  width: 20%;
+  height: 10%;
+  width: 10%;
+  border-radius: 10px;
+}
+
+#app {
+  display: flex;
+  flex-direction: row;
+}
+
+#selImg {
+  height: 30rem;
+  width: 20rem;
+}
+
+.dogExpand {
+  display: flex;
+}
+
+#idforimage {
+  height: 10%;
+  width: 10%;
+  margin: 10px;
+}
+
+#idfordiv {
+  border: 1px dotted black;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+#dbutton {
+  margin: 10px;
 }

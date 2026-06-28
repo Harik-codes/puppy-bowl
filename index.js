@@ -1,5 +1,3 @@
-/*             Feel free to use this skeleton I have provided or delete everything and do your own thing!             */
-
 const link =
   "https://fsa-puppy-bowl.herokuapp.com/api/2605-FTB-ET-WEB-FT/players";
 
@@ -8,27 +6,12 @@ let singleDogInfo = null;
 const puppySelect = document.querySelector("#puppySelect");
 const puppyStatus = document.querySelector("#puppyStatus");
 
-/**
- * Fetches all players from the API.
- * This function should not be doing any rendering
- * Instead, this function should be keeping our state up to date
- */
 const fetchAllPlayers = async () => {
   const response = await fetch(link);
   const data = await response.json();
   dogInfo = data.data.players;
 };
 
-/**
- * Fetches a single player from the API.
- * This function should not be doing any rendering
- * Instead, this function should be keeping our state up to date
- * @param {number} playerId
- */
-/**
- * Note: In order to call fetchSinglePlayer() a player's id is required.
- * Unless we know the id of the player we are trying to fetch, we cannot call fetchSinglePlayer()
- */
 const fetchSinglePlayer = async (playerId) => {
   const response = await fetch(`${link}/${playerId}`);
   const data = await response.json();
@@ -87,21 +70,22 @@ const removePlayer = async (playerId) => {
  */
 const render = () => {
   const html = dogInfo.map((info) => {
-    return `<div class="dogExpand" data-dogid=${info.id}>
-    <img src="${info.imageUrl}"/>
-    <h3>${info.name}</h3>
+    return `<div class="dogExpand" id="idfordiv" data-dogid=${info.id}>
+    <img src="${info.imageUrl}" class="dogExpand" id="idforimage" data-dogid=${info.id}/>
+    <h3 class="dogExpand" data-dogid=${info.id}>${info.name}</h3>
     </div>`;
   });
   puppySelect.innerHTML = html.join("");
   if (!singleDogInfo) {
     puppyStatus.innerHTML = "Please make a selection.";
   } else {
-    puppyStatus.innerHTML = `<img src="${singleDogInfo.imageUrl}"/>
+    puppyStatus.innerHTML = `<img id="selImg" src="${singleDogInfo.imageUrl}"/>
                             <p>Name: ${singleDogInfo.name}</p>
                             <p>Id: ${singleDogInfo.id}</p>
-                            <p>Team: ${singleDogInfo.team}</p>
+                            <p>Team: ${singleDogInfo.team ? singleDogInfo.team.name : "Unassigned"}</p>
                             <p>Breed: ${singleDogInfo.breed}</p>
                             <p>Status: ${singleDogInfo.status}</p>
+                            <button>Remove from roster</button>
 `;
   }
 };
@@ -114,10 +98,6 @@ puppySelect.addEventListener("click", async (event) => {
   }
 });
 
-/**
- * Initializes the app by calling render
- * HOWEVER....
- */
 const init = async () => {
   await fetchAllPlayers();
 
