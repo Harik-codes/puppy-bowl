@@ -81,14 +81,22 @@ const removePlayer = async (playerId) => {
  *    from the database and our current view without having to refresh
  *
  */
-const render = () => {};
+const render = () => {
+  const html = dogInfo.map((info) => {
+    return `<div>
+    <img src="${info.imageUrl}"/>
+    <h3>${info.name}</h3>
+    </div>`;
+  });
+  puppySelect.innerHTML = html.join("");
+};
 
 /**
  * Initializes the app by calling render
  * HOWEVER....
  */
 const init = async () => {
-  //Before we render, what do we always need?
+  await fetchAllPlayers();
 
   render();
 };
