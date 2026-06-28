@@ -1,12 +1,10 @@
 /*             Feel free to use this skeleton I have provided or delete everything and do your own thing!             */
 
-//If you would like to, you can create a variable to store the API_URL here.
-//This is optional. if you do not want to, skip this and move on.
+const link =
+  "https://fsa-puppy-bowl.herokuapp.com/api/2605-FTB-ET-WEB-FT/players";
 
-/////////////////////////////
-/*This looks like a good place to declare any state or global variables you might need*/
-
-////////////////////////////
+let dogInfo = [];
+const puppySelect = document.querySelector("#puppySelect");
 
 /**
  * Fetches all players from the API.
@@ -14,7 +12,9 @@
  * Instead, this function should be keeping our state up to date
  */
 const fetchAllPlayers = async () => {
-  //TODO
+  const response = await fetch(link);
+  const data = await response.json();
+  dogInfo = data.data.players;
 };
 
 /**
@@ -81,9 +81,7 @@ const removePlayer = async (playerId) => {
  *    from the database and our current view without having to refresh
  *
  */
-const render = () => {
-  // TODO
-};
+const render = () => {};
 
 /**
  * Initializes the app by calling render
