@@ -11,30 +11,33 @@
       <div>
         <div id="puppySelect"></div>
         <div>
-          <h4>Invite a Puppy</h4>
+          <h3>Invite a Puppy</h3>
           <form id="dform">
             <lable>
               NAME:
               <br />
-              <input type="text" name="dname" />
+              <input type="text" name="dname" required />
             </lable>
             <br />
             <lable>
               Breed:
               <br />
-              <input type="text" name="dbreed" />
+              <input type="text" name="dbreed" required />
             </lable>
             <br />
             <lable
               >Status:
               <br />
-              <input type="text" name="dstatus" />
+              <select name="dstatus">
+                <option value="bench">bench</option>
+                <option value="field">field</option>
+              </select>
             </lable>
             <br />
             <lable
               >ImageURL:
               <br />
-              <input type="text" name="dimageurl" />
+              <input type="url" name="dimageurl" />
             </lable>
             <br />
             <button id="dbutton" type="submit">Invite Puppy</button>

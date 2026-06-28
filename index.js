@@ -5,6 +5,7 @@ let dogInfo = [];
 let singleDogInfo = null;
 const puppySelect = document.querySelector("#puppySelect");
 const puppyStatus = document.querySelector("#puppyStatus");
+const dform = document.querySelector("#dform");
 
 const fetchAllPlayers = async () => {
   const response = await fetch(link);
@@ -34,7 +35,15 @@ const fetchSinglePlayer = async (playerId) => {
  */
 
 const addNewPlayer = async (newPlayer) => {
-  //TODO
+  const response = await fetch(link, {
+    method: "POST",
+    headers: {
+      "content-Type": "application/json",
+    },
+    body: JSON.stringify(newPlayer),
+  });
+  const data = await response.json();
+  console.log(data);
 };
 
 /**
@@ -96,6 +105,20 @@ puppySelect.addEventListener("click", async (event) => {
     console.log(singleDogInfo);
     render();
   }
+});
+
+dform.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const formData = new FormData(dform);
+  const newDog = {
+    name: formData.get("dname"),
+    breed: formData.get("dbreed"),
+    status: formData.get("dstatus"),
+    imageUrl: formData.get("dimageurl"),
+  };
+  await addNewPlayer(newDog);
+  await fetchAllPlayers();
+  render();
 });
 
 const init = async () => {

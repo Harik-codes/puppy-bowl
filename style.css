@@ -1,6 +1,24 @@
 body {
   background-color: antiquewhite;
 }
+
+button {
+  background-color: rgb(204, 224, 218);
+  margin: 5px;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+input,
+select {
+  border-radius: 20px;
+  padding: 10px;
+  margin: 5px;
+}
+select {
+  width: 164px;
+}
+
 img {
   height: 10%;
   width: 10%;
@@ -19,6 +37,7 @@ img {
 
 .dogExpand {
   display: flex;
+  cursor: pointer;
 }
 
 #idforimage {
